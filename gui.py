@@ -19,6 +19,9 @@ class ATMWindow(QMainWindow):
         self.manager = AccountManager("accounts.csv")
         self.current_account: Account | None = None
 
+        self.ui.label_8.move(20, 445)
+        self.ui.label_8.resize(280, 30)
+
         #Connect buttons
         self.ui.pushButton.clicked.connect(self.search_account)
         self.ui.pushButton_2.clicked.connect(self.process_transaction)
@@ -89,7 +92,7 @@ class ATMWindow(QMainWindow):
         amount_str = self.ui.lineEdit_4.text().strip()
 
         if not first or not last or not pin.isdigit() or len(pin) < 4:
-            self.ui.label_5.setText("Enter valid name and 4+ digit PIN.")
+            self.ui.label_5.setText("Enter valid name/PIN.")
             return
 
         try:
@@ -97,7 +100,7 @@ class ATMWindow(QMainWindow):
             if amount < 0:
                 raise ValueError
         except ValueError:
-            self.ui.label_5.setText("Enter a valid non-negative initial deposit.")
+            self.ui.label_5.setText("Enter a valid deposit.")
             return
 
         #Check if account already exists
